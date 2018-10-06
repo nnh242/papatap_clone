@@ -4,21 +4,29 @@
 	<title>Circles</title>
 	<link rel="stylesheet" type="text/css" href="circles.css">
 	<!-- Load the Paper.js library -->
-	<script type="text/javascript" src="js/paper-full.min.js"></script>
+	<script type="text/javascript" src="paper-full.min.js"></script>
 	<!-- Define inlined PaperScript associate it with myCanvas -->
 	<script type="text/paperscript" canvas="myCanvas">
 	/*when a key is pressed, render a circle at a random point on the screen
 	picking a random point maxPoint is the highest Point on the page that we can render a circle, tying it to the view is useful when the visible area changes from mobile to desktop, the maxPoint also changes, uses maxPoint to calculate the randomPoint */
+	let circles = [];
 	function onKeyDown(event){
 		var maxPoint = new Point(view.size.width, view.size.height);
 		var randomPoint = Point.random();
 		var point = maxPoint*randomPoint;
-		new Path.Circle(point, 50).fillColor = 'orange';
+		var newCircle = new Path.Circle(point,500);
+		newCircle.fillColor = "orange";
+		circles.push(newCircle);
 	}
-	/*Animations of cirles using the onFrame() method*/
-	var animateCircle = new Path.Circle(new Point.())
+	/*Animations of cirles using the onFrame() method for every circle in an array of circles*/
+	let animatedCircle = new Path.Circle(new Point(300,300),100);
+	animatedCircle.fillColor = "red";
 	function onFrame(){
-
+		for(let i = 0; i < circles.length; i++){
+			//adding one hue at a time to fill the circle with different colors every frame
+			circles[i].fillColor.hue +=1;
+			circles[i].scale(.9);
+		}
 	}
 </script>
 </head>
